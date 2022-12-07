@@ -28,6 +28,7 @@ namespace Milyoncu.API.Controllers
         {
             var baskets = _basketRep.GetBasketByUserId(UserId);
             return this.Ok(baskets);
+
         }
 
     }
