@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Milyoncu.Dal;
 
@@ -11,9 +12,11 @@ using Milyoncu.Dal;
 namespace Milyoncu.Dal.Migrations
 {
     [DbContext(typeof(MilyoncuContext))]
-    partial class MilyoncuContextModelSnapshot : ModelSnapshot
+    [Migration("20221207193435__eventandtickets")]
+    partial class eventandtickets
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -110,9 +113,6 @@ namespace Milyoncu.Dal.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("BasketId")
-                        .HasColumnType("int");
-
                     b.Property<int>("EventId")
                         .HasColumnType("int");
 
@@ -120,8 +120,6 @@ namespace Milyoncu.Dal.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BasketId");
 
                     b.HasIndex("EventId");
 
@@ -213,19 +211,11 @@ namespace Milyoncu.Dal.Migrations
 
             modelBuilder.Entity("Milyoncu.Entity.Concrete.Ticket", b =>
                 {
-                    b.HasOne("Milyoncu.Entity.Concrete.Basket", "Basket")
-                        .WithMany("Tickets")
-                        .HasForeignKey("BasketId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Milyoncu.Entity.Concrete.Event", "Event")
                         .WithMany("Tickets")
                         .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Basket");
 
                     b.Navigation("Event");
                 });
@@ -239,11 +229,6 @@ namespace Milyoncu.Dal.Migrations
                         .IsRequired();
 
                     b.Navigation("Wallet");
-                });
-
-            modelBuilder.Entity("Milyoncu.Entity.Concrete.Basket", b =>
-                {
-                    b.Navigation("Tickets");
                 });
 
             modelBuilder.Entity("Milyoncu.Entity.Concrete.Event", b =>

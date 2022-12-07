@@ -12,8 +12,8 @@ using Milyoncu.Dal;
 namespace Milyoncu.Dal.Migrations
 {
     [DbContext(typeof(MilyoncuContext))]
-    [Migration("20221206162409_first")]
-    partial class first
+    [Migration("20221207194358__basketid")]
+    partial class basketid
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,16 +36,15 @@ namespace Milyoncu.Dal.Migrations
                     b.Property<bool>("Completed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("TicketId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TicketQuantity")
-                        .HasColumnType("int");
-
                     b.Property<int>("TotalPrice")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Baskets");
                 });
@@ -61,9 +60,6 @@ namespace Milyoncu.Dal.Migrations
                     b.Property<string>("CategoryName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("EventId")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -91,9 +87,6 @@ namespace Milyoncu.Dal.Migrations
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("EventId")
-                        .HasColumnType("int");
-
                     b.Property<string>("EventName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -102,20 +95,12 @@ namespace Milyoncu.Dal.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TicketId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TicketPrice")
-                        .HasColumnType("int");
-
                     b.Property<int>("TicketQuantity")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("EventId");
 
                     b.ToTable("Events");
                 });
@@ -128,25 +113,20 @@ namespace Milyoncu.Dal.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("EventId")
+                    b.Property<int>("BasketId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TicketId")
+                    b.Property<int>("EventId")
                         .HasColumnType("int");
 
                     b.Property<int>("TicketPrice")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
+                    b.HasIndex("BasketId");
+
                     b.HasIndex("EventId");
-
-                    b.HasIndex("TicketId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Tickets");
                 });
@@ -178,6 +158,14 @@ namespace Milyoncu.Dal.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("SurName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("WalletId")
                         .HasColumnType("int");
 
@@ -199,14 +187,20 @@ namespace Milyoncu.Dal.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Wallets");
+                });
+
+            modelBuilder.Entity("Milyoncu.Entity.Concrete.Basket", b =>
+                {
+                    b.HasOne("Milyoncu.Entity.Concrete.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Milyoncu.Entity.Concrete.Event", b =>
@@ -217,38 +211,26 @@ namespace Milyoncu.Dal.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Milyoncu.Entity.Concrete.Category", null)
-                        .WithMany("Events")
-                        .HasForeignKey("EventId");
-
                     b.Navigation("Category");
                 });
 
             modelBuilder.Entity("Milyoncu.Entity.Concrete.Ticket", b =>
                 {
+                    b.HasOne("Milyoncu.Entity.Concrete.Basket", "Basket")
+                        .WithMany("Tickets")
+                        .HasForeignKey("BasketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Milyoncu.Entity.Concrete.Event", "Event")
-                        .WithMany()
+                        .WithMany("Tickets")
                         .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Milyoncu.Entity.Concrete.Basket", null)
-                        .WithMany("Ticket")
-                        .HasForeignKey("TicketId");
-
-                    b.HasOne("Milyoncu.Entity.Concrete.Event", null)
-                        .WithMany("Tickets")
-                        .HasForeignKey("TicketId");
-
-                    b.HasOne("Milyoncu.Entity.Concrete.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Basket");
 
                     b.Navigation("Event");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Milyoncu.Entity.Concrete.User", b =>
@@ -262,25 +244,9 @@ namespace Milyoncu.Dal.Migrations
                     b.Navigation("Wallet");
                 });
 
-            modelBuilder.Entity("Milyoncu.Entity.Concrete.Wallet", b =>
-                {
-                    b.HasOne("Milyoncu.Entity.Concrete.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Milyoncu.Entity.Concrete.Basket", b =>
                 {
-                    b.Navigation("Ticket");
-                });
-
-            modelBuilder.Entity("Milyoncu.Entity.Concrete.Category", b =>
-                {
-                    b.Navigation("Events");
+                    b.Navigation("Tickets");
                 });
 
             modelBuilder.Entity("Milyoncu.Entity.Concrete.Event", b =>

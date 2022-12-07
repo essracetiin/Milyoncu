@@ -9,11 +9,16 @@ namespace Milyoncu.Entity.Concrete
 {
     public class Basket:BaseTable
     {
+        public Basket()
+        {
+            Tickets = new List<Ticket>();
+        }
         public bool Completed { get; set; }
         public int TotalPrice { get; set; }
-        public int TicketQuantity { get; set; }
-        public int TicketId { get; set; }
-        [ForeignKey("TicketId")]
-        public ICollection<Ticket> Ticket { get; set; }
+        public int UserId { get; set; }
+        [ForeignKey("UserId")]
+        public  User User { get; set; }
+        public ICollection<Ticket> Tickets { get; set; }
+
     }
 }

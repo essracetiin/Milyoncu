@@ -5,6 +5,7 @@ using Milyoncu.Entity.Concrete;
 using Milyoncu.Repos.Abstract;
 using Milyoncu.Repos.Concrete;
 using Milyoncu.Uow;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -23,6 +24,8 @@ builder.Services.AddScoped<ITicketRep, TicketRep<Ticket>>();
 builder.Services.AddScoped<IUserRep, UserRep<User>>();
 builder.Services.AddScoped<IWalletRep, WalletRep<Wallet>>();
 builder.Services.AddScoped<IUow, Uow>();
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 
 builder.Services.AddCors(options =>

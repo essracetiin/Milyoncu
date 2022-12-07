@@ -10,6 +10,7 @@ namespace Milyoncu.Repos.Abstract
 {
     public interface IBasketRep: IBaseRepository<Basket>
     {
-
+        IEnumerable<Basket> GetBaskets();
+        Basket GetBasketByUserId(int UserId); //Normalde DTO'dan dönmesi gerekiyor.
     }
 }

@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32804.467
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Milyoncu", "Milyoncu\Milyoncu.csproj", "{EB58633B-67CC-4865-8FF8-D5EE6734E97B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Milyoncu.API", "Milyoncu\Milyoncu.API.csproj", "{EB58633B-67CC-4865-8FF8-D5EE6734E97B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Milyoncu.Entity", "Milyoncu.Entity\Milyoncu.Entity.csproj", "{62CD62F6-D258-4C46-9B71-50730D14451C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Milyoncu.Entity", "Milyoncu.Entity\Milyoncu.Entity.csproj", "{62CD62F6-D258-4C46-9B71-50730D14451C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Milyoncu.Core", "Milyoncu.Core\Milyoncu.Core.csproj", "{076D80DE-8E71-4F6B-B5CE-79D9BB8F981A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Milyoncu.Core", "Milyoncu.Core\Milyoncu.Core.csproj", "{076D80DE-8E71-4F6B-B5CE-79D9BB8F981A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Milyoncu.Dal", "Milyoncu.Dal\Milyoncu.Dal.csproj", "{AC08AC8A-7A67-4A98-8244-BBB448ADFB1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Milyoncu.Dal", "Milyoncu.Dal\Milyoncu.Dal.csproj", "{AC08AC8A-7A67-4A98-8244-BBB448ADFB1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Milyoncu.Dto", "Milyoncu.Dto\Milyoncu.Dto.csproj", "{C114D56B-8D56-4065-A49E-1E3857C140B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Milyoncu.Dto", "Milyoncu.Dto\Milyoncu.Dto.csproj", "{C114D56B-8D56-4065-A49E-1E3857C140B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Milyoncu.Repos", "Milyoncu.Repos\Milyoncu.Repos.csproj", "{22F4DAE7-6CA2-4341-89B9-6D076BEFE714}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Milyoncu.Repos", "Milyoncu.Repos\Milyoncu.Repos.csproj", "{22F4DAE7-6CA2-4341-89B9-6D076BEFE714}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Milyoncu.Uow", "Milyoncu.Uow\Milyoncu.Uow.csproj", "{268BCBF6-B52A-402D-B79D-427B89AEAFA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Milyoncu.Uow", "Milyoncu.Uow\Milyoncu.Uow.csproj", "{268BCBF6-B52A-402D-B79D-427B89AEAFA7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
