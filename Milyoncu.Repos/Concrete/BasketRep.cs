@@ -21,7 +21,7 @@ namespace Milyoncu.Repos.Concrete
 
         public Basket GetBasketByUserId(int UserId)
         {
-            return _db.Baskets.Include(r => r.User).Include(t => t.Tickets).FirstOrDefault(u => u.UserId == UserId);
+            return _db.Baskets.Include(r => r.User).Include(t => t.Tickets).Include(w=>w.User.Wallet).FirstOrDefault(u => u.UserId == UserId);
         }
 
         //IEnumerable<Basket> IBasketRep.GetBaskets => GetBaskets();
