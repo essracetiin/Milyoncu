@@ -13,8 +13,10 @@ namespace Milyoncu.Repos.Abstract
         public IEnumerable<Event> GetEvents();
         public Event GetEventbyId(int EventId);
         public Event CreateEvent(Event e);
-        public Event UpdateEvent();
-        public Event DeleteEvent();
+        public Event UpdateEvent(Event e);
+        public Event DeleteEvent(Event e);
+
+
 
 
 

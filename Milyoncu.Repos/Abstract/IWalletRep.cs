@@ -10,5 +10,10 @@ namespace Milyoncu.Repos.Abstract
 {
     public interface IWalletRep : IBaseRepository<Wallet>
     {
+        IEnumerable<Wallet> GetWallet();
+        Wallet GetWalletById(int WalletId);
+        Wallet CreateWallet(Wallet wallet);
+        Wallet UpdateWallet(Wallet wallet);
+        Wallet DeleteWallet(Wallet wallet);
     }
 }

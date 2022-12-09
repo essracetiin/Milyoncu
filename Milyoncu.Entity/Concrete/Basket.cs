@@ -19,7 +19,7 @@ namespace Milyoncu.Entity.Concrete
         public int UserId { get; set; }
         [ForeignKey("UserId")]
         public  User User { get; set; }
-        public ICollection<Ticket> Tickets { get; set; }
+        public ICollection<Ticket> ?Tickets { get; set; }
 
     }
 }

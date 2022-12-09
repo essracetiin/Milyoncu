@@ -10,8 +10,6 @@ namespace Milyoncu.Entity.Concrete
 {
     public class Wallet : BaseTable
     {
-
-        
         public int Amount { get; set; }
     }
 }

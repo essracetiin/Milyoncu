@@ -14,15 +14,23 @@ namespace Milyoncu.Repos.Concrete
     public class BasketRep<T>: BaseRepository<Basket>,IBasketRep where T : class
     {
         public MilyoncuContext _db;
-        public BasketRep(MilyoncuContext db): base(db)
+        public BasketRep(MilyoncuContext db) : base(db)
         {
             _db = db;
         }
 
-        public Basket GetBasketByUserId(int UserId)
+        public Basket CreateCategory(Basket basket)
         {
-            return _db.Baskets.Include(r => r.User).Include(t => t.Tickets).Include(w=>w.User.Wallet).FirstOrDefault(u => u.UserId == UserId);
+            _db.Set<Basket>().Add(basket);
+            return basket;
         }
+
+        public Basket DeleteCategory(Basket basket)
+        {
+            _db.Set<Basket>().Remove(basket);
+            return basket;
+        }
+
 
         //IEnumerable<Basket> IBasketRep.GetBaskets => GetBaskets();
 
@@ -31,5 +39,15 @@ namespace Milyoncu.Repos.Concrete
             return _db.Baskets.Include(r => r.User).Include(x => x.Tickets).ToList();
         }
 
+        public Basket UpdateCategory(Basket basket)
+        {
+            _db.Set<Basket>().Update(basket);
+            return basket;
+        }
+
+        Basket IBasketRep.GetBasketByUserId(int UserId)
+        {
+            return _db.Baskets.Include(r => r.User).Include(t => t.Tickets).Include(w => w.User.Wallet).FirstOrDefault(u => u.UserId == UserId);
+        }
     }
 }

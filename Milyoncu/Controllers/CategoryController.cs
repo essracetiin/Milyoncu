@@ -17,7 +17,7 @@ namespace Milyoncu.API.Controllers
         IUow _uow;
         public CategoryController(ICategoryRep categoryRep, IUow uow)
         {
-            _categoryRep = categoryRep; 
+            _categoryRep = categoryRep;
             _uow = uow;
         }
         [HttpGet]

@@ -12,5 +12,8 @@ namespace Milyoncu.Repos.Abstract
     {
         IEnumerable<Basket> GetBaskets();
         Basket GetBasketByUserId(int UserId); //Normalde DTO'dan dönmesi gerekiyor.
+        Basket CreateCategory(Basket basket);
+        Basket UpdateCategory(Basket basket);
+        Basket DeleteCategory(Basket basket);
     }
 }

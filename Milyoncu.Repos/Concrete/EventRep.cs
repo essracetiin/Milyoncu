@@ -22,29 +22,34 @@ namespace Milyoncu.Repos.Concrete
         public Event CreateEvent(Event e)
         {
             _db.Set<Event>().Add(e);
-            
+
             return e;
 
         }
 
-        public Event DeleteEvent()
+
+
+        public Event DeleteEvent(Event e)
         {
-            throw new NotImplementedException();
+            _db.Set<Event>().Remove(e);
+            return e;
         }
 
         public Event GetEventbyId(int EventId)
         {
-            return _db.Events.Include(c=>c.Category).FirstOrDefault(e => e.Id == EventId);
+            return _db.Events.Include(c => c.Category).FirstOrDefault(e => e.Id == EventId);
         }
 
         public IEnumerable<Event> GetEvents()
         {
-            return _db.Events.Include(c =>c.Category).ToList();
+            return _db.Events.Include(c => c.Category).ToList();
         }
 
-        public Event UpdateEvent()
+        public Event UpdateEvent(Event e)
         {
-            throw new NotImplementedException();
+            _db.Set<Event>().Update(e);
+            return e;
+
         }
     }
 }

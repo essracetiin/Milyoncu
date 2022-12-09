@@ -1,23 +1,29 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Milyoncu.Dto;
+using Milyoncu.Entity.Concrete;
 using Milyoncu.Repos.Abstract;
+using Milyoncu.Repos.Concrete;
+using Milyoncu.Uow;
 using System.Net.Mime;
 
 namespace Milyoncu.API.Controllers
 {
-    
+
     [Route("api/[controller]")]
     [Produces(MediaTypeNames.Application.Json)]
     [ApiController]
     public class BasketController : ControllerBase
     {
         private readonly IBasketRep _basketRep;
-        public BasketController(IBasketRep basketRep)
+        IUow _uow;
+        public BasketController(IBasketRep basketRep, IUow uow)
         {
             _basketRep = basketRep;
+            _uow = uow;
         }
         [HttpGet]
-        
+
         public IActionResult GetBaskets()
         {
             var baskets = _basketRep.GetBaskets();
@@ -29,6 +35,27 @@ namespace Milyoncu.API.Controllers
             var baskets = _basketRep.GetBasketByUserId(UserId);
             return this.Ok(baskets);
 
+        }
+        [HttpPost]
+        public IActionResult Create(Basket basket)
+        {
+            var baskets = _basketRep.CreateCategory(basket);
+            _uow.Commit();
+            return this.Ok(baskets);
+        }
+        [HttpPut]
+        public IActionResult Update(Basket basket)
+        {
+            var baskets = _basketRep.UpdateCategory(basket);
+            _uow.Commit();
+            return this.Ok(baskets);
+        }
+        [HttpDelete]
+        public IActionResult Delete(Basket basket)
+        {
+            var baskets = _basketRep.DeleteCategory(basket);
+            _uow.Commit();
+            return this.Ok(baskets);
         }
 
     }
