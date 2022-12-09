@@ -13,10 +13,6 @@ namespace Milyoncu.Entity.Concrete
         public int TicketPrice { get; set; }
         public int EventId { get; set; }
         public Event Event { get; set; }
-        public int BasketId { get; set; }
-        public Basket Basket { get; set; }
-
-
     }
 
 }

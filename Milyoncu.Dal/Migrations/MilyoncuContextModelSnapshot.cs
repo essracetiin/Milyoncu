@@ -33,6 +33,9 @@ namespace Milyoncu.Dal.Migrations
                     b.Property<bool>("Completed")
                         .HasColumnType("bit");
 
+                    b.Property<int>("TicketId")
+                        .HasColumnType("int");
+
                     b.Property<int>("TotalPrice")
                         .HasColumnType("int");
 
@@ -110,7 +113,7 @@ namespace Milyoncu.Dal.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("BasketId")
+                    b.Property<int?>("BasketId")
                         .HasColumnType("int");
 
                     b.Property<int>("EventId")
@@ -194,7 +197,7 @@ namespace Milyoncu.Dal.Migrations
                     b.HasOne("Milyoncu.Entity.Concrete.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -205,7 +208,7 @@ namespace Milyoncu.Dal.Migrations
                     b.HasOne("Milyoncu.Entity.Concrete.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Category");
@@ -213,19 +216,15 @@ namespace Milyoncu.Dal.Migrations
 
             modelBuilder.Entity("Milyoncu.Entity.Concrete.Ticket", b =>
                 {
-                    b.HasOne("Milyoncu.Entity.Concrete.Basket", "Basket")
+                    b.HasOne("Milyoncu.Entity.Concrete.Basket", null)
                         .WithMany("Tickets")
-                        .HasForeignKey("BasketId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BasketId");
 
                     b.HasOne("Milyoncu.Entity.Concrete.Event", "Event")
                         .WithMany("Tickets")
                         .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("Basket");
 
                     b.Navigation("Event");
                 });
@@ -235,7 +234,7 @@ namespace Milyoncu.Dal.Migrations
                     b.HasOne("Milyoncu.Entity.Concrete.Wallet", "Wallet")
                         .WithMany()
                         .HasForeignKey("WalletId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Wallet");

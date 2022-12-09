@@ -15,6 +15,7 @@ namespace Milyoncu.Entity.Concrete
         }
         public bool Completed { get; set; }
         public int TotalPrice { get; set; }
+        public int TicketId { get; set; }
         public int UserId { get; set; }
         [ForeignKey("UserId")]
         public  User User { get; set; }
