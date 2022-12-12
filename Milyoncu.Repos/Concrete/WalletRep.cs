@@ -31,14 +31,20 @@ namespace Milyoncu.Repos.Concrete
             return wallet;
         }
 
+        public bool DeleteWalletById(int walletId)
+        {
+            Set().Remove(Find(walletId));
+            return true;
+        }
+
         public IEnumerable<Wallet> GetWallet()
         {
             return _db.Wallets.ToList();
         }
 
-        public Wallet GetWalletById(int WalletId)
+        public Wallet GetWalletById(int walletId)
         {
-            return _db.Wallets.FirstOrDefault(c => c.Id == WalletId);
+            return _db.Wallets.FirstOrDefault(c => c.Id == walletId);
         }
 
         public Wallet UpdateWallet(Wallet wallet)

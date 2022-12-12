@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Milyoncu.Dto;
 using Milyoncu.Entity.Concrete;
 using Milyoncu.Repos.Abstract;
 using Milyoncu.Repos.Concrete;
@@ -56,6 +55,13 @@ namespace Milyoncu.API.Controllers
             var baskets = _basketRep.DeleteCategory(basket);
             _uow.Commit();
             return this.Ok(baskets);
+        }
+        [HttpDelete("{basketId:int}")]
+        public IActionResult DeleteBasketById(int basketId)
+        {
+            _uow._basketRep.DeleteBasketById(basketId);
+            _uow.Commit();
+            return this.Ok();
         }
 
     }

@@ -53,5 +53,12 @@ namespace Milyoncu.API.Controllers
             _uow.Commit();
             return this.Ok(wallets);
         }
+        [HttpDelete("{walletId:int}")]
+        public IActionResult DeleteWalletById(int walletId)
+        {
+            _uow._walletRep.DeleteWalletById(walletId);
+            _uow.Commit();
+            return this.Ok();
+        }
     }
 }
