@@ -5,10 +5,12 @@ using Milyoncu.Repos.Abstract;
 using Milyoncu.Repos.Concrete;
 using Milyoncu.Uow;
 using System.Diagnostics.Tracing;
+using System.Net.Mime;
 
 namespace Milyoncu.API.Controllers
 {
     [Route("/[controller]/[action]")]
+    [Produces(MediaTypeNames.Application.Json)]
     [ApiController]
     public class EventController : ControllerBase
     {
