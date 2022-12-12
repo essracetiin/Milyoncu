@@ -38,6 +38,27 @@ namespace Milyoncu.API.Controllers
             _uow.Commit();
             return this.Ok(c);
         }
+        [HttpPut]
+        public IActionResult UpdateUser(User u)
+        {
+            var user = _userRep.UpdateUser(u);
+            _uow.Commit();
+            return this.Ok(user);  
+        }
+        [HttpDelete]
+        public IActionResult Delete(User u)
+        {
+            var user = _userRep.DeleteUser(u);
+            _uow.Commit();
+            return this.Ok(user);
+        }
+        [HttpDelete("{UserId:int}")]
+        public IActionResult DeletebyUserId(int UserId)
+        {
+            _uow._userRep.DeletebyUserId(UserId);
+            _uow.Commit();
+            return this.Ok();
+        }
         
 
         
