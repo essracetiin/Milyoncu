@@ -20,6 +20,6 @@ namespace Milyoncu.Entity.Concrete
         public bool Error { get; set; }
         public int WalletId { get; set; }
         [ForeignKey("WalletId")]
-        public  Wallet Wallet { get; set; }
+        public  Wallet ?Wallet { get; set; }
     }
 }
