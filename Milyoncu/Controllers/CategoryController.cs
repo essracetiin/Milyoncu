@@ -54,5 +54,12 @@ namespace Milyoncu.API.Controllers
             _uow.Commit();
             return this.Ok(categories);
         }
+        [HttpDelete("{categoryId:int}")]
+        public IActionResult DeleteCategoryById(int categoryId)
+        {
+            _uow._categoryRep.DeleteCategoryById(categoryId);
+            _uow.Commit();
+            return this.Ok();
+        }
     }
 }

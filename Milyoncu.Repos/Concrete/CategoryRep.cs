@@ -13,7 +13,7 @@ namespace Milyoncu.Repos.Concrete
     public class CategoryRep<T> : BaseRepository<Category>, ICategoryRep where T : class
     {
         public MilyoncuContext _db;
-       
+
         public CategoryRep(MilyoncuContext db) : base(db)
         {
             _db = db;
@@ -31,14 +31,20 @@ namespace Milyoncu.Repos.Concrete
             return category;
         }
 
+        public bool DeleteCategoryById(int categoryId)
+        {
+            Set().Remove(Find(categoryId));
+            return true;
+        }
+
         public IEnumerable<Category> GetCategories()
         {
             return _db.Categories.ToList();
         }
 
-        public Category GetCategoryById(int CategoryId)
+        public Category GetCategoryById(int categoryId)
         {
-            return _db.Categories.FirstOrDefault(c => c.Id == CategoryId);
+            return _db.Categories.FirstOrDefault(c => c.Id == categoryId);
         }
 
         public Category UpdateCategory(Category category)
