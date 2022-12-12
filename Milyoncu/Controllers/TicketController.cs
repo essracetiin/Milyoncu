@@ -15,6 +15,7 @@ namespace Milyoncu.API.Controllers
     {
         private readonly ITicketRep _ticketRep;
         private readonly IUow _uow;
+
         public TicketController(ITicketRep ticketRep, IUow uow)
         {
             _ticketRep = ticketRep;
