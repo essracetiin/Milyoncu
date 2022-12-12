@@ -27,7 +27,22 @@ namespace Milyoncu.Repos.Concrete
 
         }
 
+        public bool DeletebyEventId(int EventId)
+        {
+            Set().Remove(Find(EventId));
+            return true;
+        }
 
+
+        //public Event DeletebyEventId(int EventId)
+        //{
+        //    //return _db.Events.FirstOrDefault(e => e.Id == EventId);
+        //    Set().Remove(Find(EventId));
+
+
+
+
+        //}
 
         public Event DeleteEvent(Event e)
         {
