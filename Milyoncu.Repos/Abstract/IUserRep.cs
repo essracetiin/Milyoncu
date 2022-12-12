@@ -10,5 +10,12 @@ namespace Milyoncu.Repos.Abstract
 {
     public interface IUserRep : IBaseRepository<User>
     {
+        public IEnumerable<User> GetUsers();
+        public User GetUserbyId(int UserId);
+        public User CreateUser(User u);
+        public User UpdateUser(User u);
+        public User DeleteUser(User u);
+        
+        public bool DeletebyUserId(int UserId);
     }
 }
