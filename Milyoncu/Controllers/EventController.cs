@@ -4,6 +4,7 @@ using Milyoncu.Entity.Concrete;
 using Milyoncu.Repos.Abstract;
 using Milyoncu.Repos.Concrete;
 using Milyoncu.Uow;
+using System.Diagnostics.Tracing;
 
 namespace Milyoncu.API.Controllers
 {
@@ -25,7 +26,7 @@ namespace Milyoncu.API.Controllers
             var events = _eventRep.GetEvents();
             return this.Ok(events);
         }
-        [HttpGet("GetEventbyId")]
+        [HttpGet("{EventId:int}")]
         public IActionResult GetEventbyId(int EventId)
         {
             var events = _eventRep.GetEventbyId(EventId);
@@ -54,10 +55,12 @@ namespace Milyoncu.API.Controllers
             _uow.Commit();
             return this.Ok(Events);
         }
-        [HttpDelete("{Eventid}")]
-        public Event DeletebyEventId(int Eventid)
+        [HttpDelete("{EventId:int}")]
+        public IActionResult DeletebyEventId(int EventId)
         {
-            return _eventRep.DeleteEvent(_eventRep.GetEventbyId(Eventid));
+            _uow._eventRep.DeletebyEventId(EventId);
+            _uow.Commit();
+            return this.Ok();
         }
     }
 }

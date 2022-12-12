@@ -15,6 +15,8 @@ namespace Milyoncu.Repos.Abstract
         public Event CreateEvent(Event e);
         public Event UpdateEvent(Event e);
         public Event DeleteEvent(Event e);
+        //public Event DeletebyEventId(int EventId);
+        public bool DeletebyEventId(int EventId);
 
 
 
