@@ -15,5 +15,6 @@ namespace Milyoncu.Repos.Abstract
         Basket CreateCategory(Basket basket);
         Basket UpdateCategory(Basket basket);
         Basket DeleteCategory(Basket basket);
+        public bool DeleteBasketById(int basketId);
     }
 }

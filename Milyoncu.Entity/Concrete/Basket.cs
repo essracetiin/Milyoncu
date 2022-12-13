@@ -18,7 +18,7 @@ namespace Milyoncu.Entity.Concrete
         public int TicketId { get; set; }
         public int UserId { get; set; }
         [ForeignKey("UserId")]
-        public  User User { get; set; }
+        public  User ?User { get; set; }
         public ICollection<Ticket> ?Tickets { get; set; }
 
     }

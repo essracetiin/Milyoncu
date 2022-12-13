@@ -25,6 +25,12 @@ namespace Milyoncu.Repos.Concrete
             return basket;
         }
 
+        public bool DeleteBasketById(int basketId)
+        {
+            Set().Remove(Find(basketId));
+            return true;
+        }
+
         public Basket DeleteCategory(Basket basket)
         {
             _db.Set<Basket>().Remove(basket);
