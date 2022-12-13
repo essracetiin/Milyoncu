@@ -197,7 +197,7 @@ namespace Milyoncu.Dal.Migrations
                     b.HasOne("Milyoncu.Entity.Concrete.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -208,7 +208,7 @@ namespace Milyoncu.Dal.Migrations
                     b.HasOne("Milyoncu.Entity.Concrete.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");
@@ -216,15 +216,17 @@ namespace Milyoncu.Dal.Migrations
 
             modelBuilder.Entity("Milyoncu.Entity.Concrete.Ticket", b =>
                 {
-                    b.HasOne("Milyoncu.Entity.Concrete.Basket", null)
+                    b.HasOne("Milyoncu.Entity.Concrete.Basket", "Basket")
                         .WithMany("Tickets")
                         .HasForeignKey("BasketId");
 
                     b.HasOne("Milyoncu.Entity.Concrete.Event", "Event")
                         .WithMany("Tickets")
                         .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Basket");
 
                     b.Navigation("Event");
                 });
@@ -234,7 +236,7 @@ namespace Milyoncu.Dal.Migrations
                     b.HasOne("Milyoncu.Entity.Concrete.Wallet", "Wallet")
                         .WithMany()
                         .HasForeignKey("WalletId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Wallet");
