@@ -11,9 +11,10 @@ namespace Milyoncu.Repos.Abstract
     public interface ICategoryRep : IBaseRepository<Category>
     {
         IEnumerable<Category> GetCategories();
-        Category GetCategoryById(int Id);
+        Category GetCategoryById(int categoryId);
         Category CreateCategory(Category category);
         Category UpdateCategory(Category category);
         Category DeleteCategory(Category category);
+        public bool DeleteCategoryById(int categoryId);
     }
 }
