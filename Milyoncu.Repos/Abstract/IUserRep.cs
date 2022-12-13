@@ -1,4 +1,5 @@
 ﻿using Milyoncu.Core;
+using Milyoncu.Dto;
 using Milyoncu.Entity.Concrete;
 using System;
 using System.Collections.Generic;
@@ -17,5 +18,6 @@ namespace Milyoncu.Repos.Abstract
         public User DeleteUser(User u);
         
         public bool DeletebyUserId(int UserId);
+        public UserDTO Login(string Mail, string Password);
     }
 }
