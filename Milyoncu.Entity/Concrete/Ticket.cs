@@ -18,7 +18,7 @@ namespace Milyoncu.Entity.Concrete
         public Event ?Event { get; set; }
         [ForeignKey("BasketId")]
         public Basket ?Basket{ get; set; }
-        public Event ?Event { get; set; }
+       
     }
 
 }
