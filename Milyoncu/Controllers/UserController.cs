@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Milyoncu.Dto.Models;
 using Milyoncu.Entity.Concrete;
 using Milyoncu.Repos.Abstract;
 using Milyoncu.Uow;
@@ -14,10 +15,12 @@ namespace Milyoncu.API.Controllers
     {
         private readonly IUserRep _userRep;
         private readonly IUow _uow;
-        public UserController( IUserRep userRep, IUow uow)
+        UserModel _model;
+        public UserController(IUserRep userRep, IUow uow, UserModel model)
         {
             _userRep = userRep;
             _uow = uow;
+            _model = model;
         }
         [HttpGet]
         public IActionResult GetUsers()
@@ -31,19 +34,38 @@ namespace Milyoncu.API.Controllers
             var users = _userRep.GetUserbyId(UserId);
             return this.Ok(users);
         }
-        [HttpPost]
-        public IActionResult CreateUser(User u)
+        public IActionResult Register()
         {
-            var c = _userRep.CreateUser(u);
-            _uow.Commit();
-            return this.Ok(c);
+            _model.User = new User();
+
+            return this.Ok(_model);
+        }
+
+        [HttpPost]
+        public IActionResult Register(UserModel m)
+        {
+            m.User = _uow._userRep.CreateUser(m.User);
+            if (m.User.Error == false)
+            {
+                var user = _uow._userRep.Add(m.User);
+                _uow.Commit();
+                return this.Ok(user);
+                //return RedirectToAction("Index");
+            }
+            else
+            {
+                m.Message = $"{m.User.Mail} already exist.";
+
+                return this.Ok(m);
+            }
+
         }
         [HttpPut]
         public IActionResult UpdateUser(User u)
         {
             var user = _userRep.UpdateUser(u);
             _uow.Commit();
-            return this.Ok(user);  
+            return this.Ok(user);
         }
         [HttpDelete]
         public IActionResult Delete(User u)
@@ -59,9 +81,9 @@ namespace Milyoncu.API.Controllers
             _uow.Commit();
             return this.Ok();
         }
-        
 
-        
+
+
 
     }
 }
