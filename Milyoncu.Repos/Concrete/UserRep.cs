@@ -19,12 +19,14 @@ namespace Milyoncu.Repos.Concrete
             _db = db;
         }
 
-        public User CreateUser(User u)
+        public UserDTO CreateUser(UserDTO u)
         {
             User selectedUser = _db.Set<User>().FirstOrDefault(x => x.Mail == u.Mail);
             if (selectedUser != null)
             {
                 u.Error = true;
+                u.Message = $"{u.User.Mail} adlı mail kullanılmaktadır.";
+                return u;
             }
             else
             {

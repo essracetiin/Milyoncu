@@ -13,7 +13,7 @@ namespace Milyoncu.Repos.Abstract
     {
         public IEnumerable<User> GetUsers();
         public User GetUserbyId(int UserId);
-        public User CreateUser(User u);
+        public UserDTO CreateUser(UserDTO u);
         public User UpdateUser(User u);
         public User DeleteUser(User u);
         

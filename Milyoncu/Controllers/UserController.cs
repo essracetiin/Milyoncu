@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Milyoncu.Dto;
 using Milyoncu.Dto.Models;
 using Milyoncu.Entity.Concrete;
 using Milyoncu.Repos.Abstract;
@@ -9,18 +10,17 @@ using System.Net.Mime;
 namespace Milyoncu.API.Controllers
 {
     [Route("[controller]/[action]")]
-    [Produces(MediaTypeNames.Application.Json)]
     [ApiController]
     public class UserController : ControllerBase
     {
         private readonly IUserRep _userRep;
         private readonly IUow _uow;
-        UserModel _model;
-        public UserController(IUserRep userRep, IUow uow, UserModel model)
+        Response _response;
+        public UserController(IUserRep userRep, IUow uow, Response response)
         {
             _userRep = userRep;
             _uow = uow;
-            _model = model;
+            _response = response;
         }
         [HttpGet]
         public IActionResult GetUsers()
@@ -34,30 +34,39 @@ namespace Milyoncu.API.Controllers
             var users = _userRep.GetUserbyId(UserId);
             return this.Ok(users);
         }
-        public IActionResult Register()
-        {
-            _model.User = new User();
 
-            return this.Ok(_model);
-        }
 
         [HttpPost]
-        public IActionResult Register(UserModel m)
+        public Response Register(UserDTO user)
         {
-            m.User = _uow._userRep.CreateUser(m.User);
-            if (m.User.Error == false)
+            user = _uow._userRep.CreateUser(user);
+            try
             {
-                var user = _uow._userRep.Add(m.User);
-                _uow.Commit();
-                return this.Ok(user);
-                //return RedirectToAction("Index");
-            }
-            else
-            {
-                m.Message = $"{m.User.Mail} already exist.";
+                if (user.Error)
+                {
+                    _response.Error = true;
+                    user.Message = _response.Message;
 
-                return this.Ok(m);
+
+                }
+                else
+                {
+                    _uow._userRep.Add(user.Map());
+                    var x = user.Map();
+                    _uow.Commit();
+                    _response.Error = false;
+                    _response.Message = "Hesabınız başarı ile oluşturuldu.";
+                    return _response;
+                }
+
             }
+            catch (Exception ex)
+            {
+                _response.Message = ex.Message;
+                _response.Error = true;
+
+            }
+            return _response;
 
         }
         [HttpPut]
