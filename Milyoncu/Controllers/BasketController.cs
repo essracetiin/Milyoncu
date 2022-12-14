@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Milyoncu.Dto.Models;
 using Milyoncu.Entity.Concrete;
 using Milyoncu.Repos.Abstract;
 using Milyoncu.Repos.Concrete;
@@ -16,10 +17,12 @@ namespace Milyoncu.API.Controllers
     {
         private readonly IBasketRep _basketRep;
         IUow _uow;
-        public BasketController(IBasketRep basketRep, IUow uow)
+        BasketModel _basketModel;
+        public BasketController(IBasketRep basketRep, IUow uow, BasketModel basketModel)
         {
             _basketRep = basketRep;
             _uow = uow;
+            _basketModel = basketModel; 
         }
         [HttpGet]
 
@@ -41,7 +44,7 @@ namespace Milyoncu.API.Controllers
             var baskets = _basketRep.CreateCategory(basket);
             _uow.Commit();
             return this.Ok(baskets);
-        }
+        } 
         [HttpPut]
         public IActionResult Update(Basket basket)
         {
