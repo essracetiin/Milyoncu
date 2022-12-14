@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Milyoncu.Core;
 using Milyoncu.Dal;
+using Milyoncu.Dto;
 using Milyoncu.Entity.Concrete;
 using Milyoncu.Repos.Abstract;
 using System;
@@ -54,6 +55,19 @@ namespace Milyoncu.Repos.Concrete
         Basket IBasketRep.GetBasketByUserId(int UserId)
         {
             return _db.Baskets.Include(r => r.User).Include(t => t.Tickets).Include(w => w.User.Wallet).FirstOrDefault(u => u.UserId == UserId);
+        }
+        public BasketDTO ConfirmBasket(int userId)
+        {
+            var basket = _db.Baskets.Include(n => n.Tickets).FirstOrDefault(f => f.UserId == userId);
+            basket.Completed = true;
+            basket.Tickets.ToList().ForEach(item => item.Completed = true);
+            _db.Baskets.Entry(basket).State = EntityState.Modified; //basket entitysinde değişiklik yapıldığı bilgisini yolluyor.
+            _db.SaveChanges();
+            BasketDTO basketdto = new BasketDTO();
+            basketdto.Message = "Sepetiniz Onaylanmıştır.";
+            basketdto.Error = false;
+            return basketdto;
+            
         }
     }
 }

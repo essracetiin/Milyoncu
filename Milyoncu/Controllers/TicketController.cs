@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Milyoncu.Dto;
 using Milyoncu.Entity.Concrete;
 using Milyoncu.Repos.Abstract;
 using Milyoncu.Repos.Concrete;
@@ -61,5 +62,19 @@ namespace Milyoncu.API.Controllers
             _uow.Commit();
             return this.Ok();
         }
+        [HttpPost("AddToBasket")]
+        public IActionResult AddToBasket(TicketDTO t)
+        {
+            var tickets = _ticketRep.AddToBasket(t);
+            return this.Ok(tickets);
+        }
+
+        [HttpPost("RemoveFromBasket")]
+        public IActionResult RemoveFromBasket(TicketDTO t)
+        {
+            var tickets = _ticketRep.RemoveFromBasket(t);
+            return this.Ok(tickets);
+        }
+
     }
 }

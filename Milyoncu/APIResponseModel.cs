@@ -1,6 +1,6 @@
 ﻿namespace Milyoncu.API
 {
-    public class Response
+    public class APIResponseModel
     {
 
         public string Message { get; set; }
