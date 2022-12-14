@@ -21,20 +21,35 @@ namespace Milyoncu.Repos.Concrete
 
         public UserDTO CreateUser(UserDTO u)
         {
-            User selectedUser = _db.Set<User>().FirstOrDefault(x => x.Mail == u.Mail);
-            if (selectedUser != null)
+            var duplicateControl = _db.Users.FirstOrDefault(c => c.Mail == u.Mail);
+            if (duplicateControl != null)
             {
                 u.Error = true;
-                u.Message = $"{u.User.Mail} adlı mail kullanılmaktadır.";
+                u.Message = "Bu mail adresi kayıtlıdır.";
                 return u;
             }
-            else
+            
+            Wallet wallet = new Wallet()
             {
-                u.Error = false;
-            }
-            u.Password = BCrypt.Net.BCrypt.HashPassword(u.Password);
-            u.Role = "User";
+                Amount = 0
+            };
+            _db.Wallets.Add(wallet);
+            _db.SaveChanges();
+            User user = new User()
+            {
+                UserName = u.UserName,
+                Name = u.Name,
+                SurName = u.SurName,
+                Role = u.Role,
+                Mail = u.Mail,
+                Password = BCrypt.Net.BCrypt.HashPassword(u.Password),
+                Error = u.Error,
+                WalletId = wallet.Id
+
+            };
+            _db.Users.Add(user);
             return u;
+
         }
 
         public bool DeletebyUserId(int UserId)

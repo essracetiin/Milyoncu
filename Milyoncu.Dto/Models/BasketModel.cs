@@ -8,8 +8,7 @@ namespace Milyoncu.Dto.Models
 {
     public class BasketModel
     {
-        public List<BasketDTO> BasketDTO { get; set; }
-        public List<TicketDTO> TicketDTO { get; set; }
+        public BasketDTO BasketDTO { get; set; }
         public int TicketId { get; set; }
         public int TicketPrice { get; set; }
         public int Total { get; set; }

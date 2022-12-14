@@ -17,12 +17,12 @@ namespace Milyoncu.API.Controllers
     {
         private readonly IBasketRep _basketRep;
         IUow _uow;
-        BasketModel _basketModel;
-        public BasketController(IBasketRep basketRep, IUow uow, BasketModel basketModel)
+
+        public BasketController(IBasketRep basketRep, IUow uow)
         {
             _basketRep = basketRep;
             _uow = uow;
-            _basketModel = basketModel; 
+
         }
         [HttpGet]
 
@@ -44,7 +44,7 @@ namespace Milyoncu.API.Controllers
             var baskets = _basketRep.CreateCategory(basket);
             _uow.Commit();
             return this.Ok(baskets);
-        } 
+        }
         [HttpPut]
         public IActionResult Update(Basket basket)
         {
@@ -66,6 +66,17 @@ namespace Milyoncu.API.Controllers
             _uow.Commit();
             return this.Ok();
         }
-
+        [HttpPost("ConfirmBasket")]
+        public IActionResult ConfirmBasket(int userId)
+        {
+            var basket = _basketRep.ConfirmBasket(userId);
+            APIResponseModel rspModel = new APIResponseModel()
+            {
+                Error = basket.Error,
+                Message = basket.Message
+            };
+            
+            return this.Ok(rspModel);
+        }
     }
 }

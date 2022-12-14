@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Milyoncu.Core;
 using Milyoncu.Dal;
+using Milyoncu.Dto;
 using Milyoncu.Entity.Concrete;
 using Milyoncu.Repos.Abstract;
 using System;
@@ -18,6 +19,22 @@ namespace Milyoncu.Repos.Concrete
         public TicketRep(MilyoncuContext db) : base(db)
         {
             _db = db;
+        }
+        public TicketDTO AddToBasket(TicketDTO t)
+        {
+            var ticket = _db.Tickets.FirstOrDefault(r=>r.Id == t.Id);
+            ticket.BasketId = t.BasketId;
+            _db.Tickets.Entry(ticket).State = EntityState.Modified;
+            _db.SaveChanges();
+            return t;
+        }
+        public TicketDTO RemoveFromBasket(TicketDTO t)
+        {
+            var ticket = _db.Tickets.FirstOrDefault(r => r.Id == t.Id);
+            ticket.BasketId = null;
+            _db.Tickets.Entry(ticket).State = EntityState.Modified;
+            _db.SaveChanges();
+            return t;
         }
 
         public Ticket CreateTicket(Ticket ticket)

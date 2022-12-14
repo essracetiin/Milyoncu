@@ -10,13 +10,14 @@ using System.Net.Mime;
 namespace Milyoncu.API.Controllers
 {
     [Route("[controller]/[action]")]
+    [Produces(MediaTypeNames.Application.Json)]
     [ApiController]
     public class UserController : ControllerBase
     {
         private readonly IUserRep _userRep;
         private readonly IUow _uow;
-        Response _response;
-        public UserController(IUserRep userRep, IUow uow, Response response)
+        APIResponseModel _response;
+        public UserController(IUserRep userRep, IUow uow, APIResponseModel response)
         {
             _userRep = userRep;
             _uow = uow;
@@ -37,25 +38,28 @@ namespace Milyoncu.API.Controllers
 
 
         [HttpPost]
-        public Response Register(UserDTO user)
+        public APIResponseModel Register(UserDTO user)
         {
-            user = _uow._userRep.CreateUser(user);
+            //user = _userRep.CreateUser(user);
             try
             {
                 if (user.Error)
                 {
                     _response.Error = true;
                     user.Message = _response.Message;
-
-
                 }
                 else
                 {
-                    _uow._userRep.Add(user.Map());
-                    var x = user.Map();
-                    _uow.Commit();
-                    _response.Error = false;
-                    _response.Message = "Hesabınız başarı ile oluşturuldu.";
+                    var result = _userRep.CreateUser(user);
+                    //_uow._userRep.Add(user.Map());
+                    //var x = user.Map();
+                    if (!user.Error)
+                    {
+                        _uow.Commit();
+                        _response.Message = "Kayıt başarıyla oluşturuldu.";
+                    }
+                    _response.Error = result.Error;
+                    _response.Message = result.Message;
                     return _response;
                 }
 
