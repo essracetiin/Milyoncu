@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Milyoncu.Dal.Migrations
 {
     /// <inheritdoc />
-    public partial class asadsd : Migration
+    public partial class last : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -96,7 +96,6 @@ namespace Milyoncu.Dal.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Completed = table.Column<bool>(type: "bit", nullable: false),
                     TotalPrice = table.Column<int>(type: "int", nullable: false),
-                    TicketId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -118,6 +117,7 @@ namespace Milyoncu.Dal.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TicketPrice = table.Column<int>(type: "int", nullable: false),
                     EventId = table.Column<int>(type: "int", nullable: false),
+                    Completed = table.Column<bool>(type: "bit", nullable: true),
                     BasketId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>

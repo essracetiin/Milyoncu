@@ -28,7 +28,11 @@ namespace Milyoncu.Repos.Concrete
                 u.Message = "Bu mail adresi kayıtlıdır.";
                 return u;
             }
-            
+            else
+            {
+                u.Error = false;
+                u.Message = "Kayıt Başarıyla Oluşturuldu";
+            }
             Wallet wallet = new Wallet()
             {
                 Amount = 0
