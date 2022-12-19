@@ -12,8 +12,8 @@ using Milyoncu.Dal;
 namespace Milyoncu.Dal.Migrations
 {
     [DbContext(typeof(MilyoncuContext))]
-    [Migration("20221214210848_ticket_compp")]
-    partial class ticketcompp
+    [Migration("20221215124847_last")]
+    partial class last
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
