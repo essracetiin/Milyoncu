@@ -58,9 +58,36 @@ namespace Milyoncu.Repos.Concrete
         }
         public BasketDTO ConfirmBasket(int userId)
         {
-            var basket = _db.Baskets.Include(n => n.Tickets).FirstOrDefault(f => f.UserId == userId);
+            var basket = _db.Baskets.Include(n => n.Tickets).Include(h => h.User.Wallet).FirstOrDefault(f => f.UserId == userId);
+            
             basket.Completed = true;
             basket.Tickets.ToList().ForEach(item => item.Completed = true);
+            
+
+            
+           
+            if (basket.Completed == true)
+            {
+               //var bilets = basket.Tickets.ToList();
+               // foreach (var tick in bilets)
+               // {
+               //     var query = (from t in _db.Tickets
+               //                  join e in _db.Events
+               //                  on t.EventId equals e.Id
+               //                  select new
+               //                  {
+               //                      t.EventId,
+               //                      e.Id,
+               //                  }
+               //         );
+
+               // }
+                var bakiye = basket.User.Wallet.Amount - basket.TotalPrice;
+                basket.User.Wallet.Amount = bakiye;
+                
+            }
+            
+            
             _db.Baskets.Entry(basket).State = EntityState.Modified; //basket entitysinde değişiklik yapıldığı bilgisini yolluyor.
             _db.SaveChanges();
             BasketDTO basketdto = new BasketDTO();
