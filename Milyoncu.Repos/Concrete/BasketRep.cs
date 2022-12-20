@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Milyoncu.Repos.Concrete
 {
-    public class BasketRep<T>: BaseRepository<Basket>,IBasketRep where T : class
+    public class BasketRep<T> : BaseRepository<Basket>, IBasketRep where T : class
     {
         public MilyoncuContext _db;
         public BasketRep(MilyoncuContext db) : base(db)
@@ -56,16 +56,16 @@ namespace Milyoncu.Repos.Concrete
         {
             return _db.Baskets.Include(r => r.User).Include(t => t.Tickets).Include(w => w.User.Wallet).FirstOrDefault(u => u.UserId == UserId);
         }
-        public BasketDTO ConfirmBasket(int userId,int ticketId)
+        public BasketDTO ConfirmBasket(int userId)
         {
-            var basket = _db.Baskets.Include(n => n.Tickets).Include(h => h.User.Wallet).FirstOrDefault(f => f.UserId == userId);
-            var quant = _db.Tickets.Include(s => s.Event).FirstOrDefault(e => e.Id == ticketId);
+            var basket = _db.Baskets.Include(n => n.Tickets).ThenInclude(e => e.Event).Include(h => h.User).ThenInclude(w => w.Wallet).FirstOrDefault(f => f.UserId == userId);
+            //var quant = _db.Tickets.Include(s => s.Event).FirstOrDefault(e => e.Id == ticketId);
             basket.Completed = true;
-            basket.Tickets.ToList().ForEach(item => item.Completed = true);
             
 
-            
-           
+
+
+
             if (basket.Completed == true)
             {
                 //var bilets = basket.Tickets.ToList();
@@ -82,23 +82,34 @@ namespace Milyoncu.Repos.Concrete
                 //         );
 
                 // }
-                var sayac = quant.Event.TicketQuantity++;
+                //var sayac = quant.Event.TicketQuantity++;
+
+                basket.Tickets.Where(p => p.Completed != true).ToList().ForEach(item => item.Event.TicketQuantity++);
+                basket.TotalPrice = basket.Tickets.Where(p => p.Completed != true).Sum(m => m.TicketPrice);
                 var bakiye = basket.User.Wallet.Amount - basket.TotalPrice;
                 basket.User.Wallet.Amount = bakiye;
-                
-                
+
+                basket.Tickets.ToList().ForEach(item => item.Completed = true);
             }
-            
-            
+
+
             _db.Baskets.Entry(basket).State = EntityState.Modified; //basket entitysinde değişiklik yapıldığı bilgisini yolluyor.
             _db.SaveChanges();
             BasketDTO basketdto = new BasketDTO();
             basketdto.Message = "Sepetiniz Onaylanmıştır.";
             basketdto.Error = false;
             return basketdto;
-            
+
         }
 
-       
+        public Basket DeCompleteBasket(int basketId)
+        {
+
+            var basket = _db.Baskets.FirstOrDefault(b => b.Id == basketId);
+            basket.Completed = false;
+            _db.Baskets.Entry(basket).State = EntityState.Modified; 
+            _db.SaveChanges();
+            return basket;
+        }
     }
 }

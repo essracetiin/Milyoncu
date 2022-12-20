@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Milyoncu.Dal;
 
@@ -11,9 +12,11 @@ using Milyoncu.Dal;
 namespace Milyoncu.Dal.Migrations
 {
     [DbContext(typeof(MilyoncuContext))]
-    partial class MilyoncuContextModelSnapshot : ModelSnapshot
+    [Migration("20221220220321__lottery")]
+    partial class lottery
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -113,8 +116,8 @@ namespace Milyoncu.Dal.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("LotteryDate")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("LotteryDate")
+                        .HasColumnType("int");
 
                     b.Property<int>("TicketId")
                         .HasColumnType("int");

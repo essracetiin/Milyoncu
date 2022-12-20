@@ -22,7 +22,7 @@ namespace Milyoncu.Repos.Concrete
         }
         public TicketDTO AddToBasket(TicketDTO t)
         {
-            var ticket = _db.Tickets.FirstOrDefault(r=>r.Id == t.Id);
+            var ticket = _db.Tickets.FirstOrDefault(r => r.Id == t.Id);
             ticket.BasketId = t.BasketId;
             _db.Tickets.Entry(ticket).State = EntityState.Modified;
             _db.SaveChanges();
@@ -70,5 +70,22 @@ namespace Milyoncu.Repos.Concrete
             _db.Set<Ticket>().Update(ticket);
             return ticket;
         }
+        public void CreateTickets(Event events)
+        {
+            var list = new List<Ticket>();
+
+            for (int i = 0; i < events.Capacity; i++)
+            {
+                list.Add(new Ticket()
+                {
+                    EventId = events.Id,
+                    TicketPrice = events.TicketPrice,
+
+                });
+            }
+            _db.Tickets.AddRange(list);
+            
+        }
+
     }
 }
