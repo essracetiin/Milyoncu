@@ -67,9 +67,9 @@ namespace Milyoncu.API.Controllers
             return this.Ok();
         }
         [HttpPost("ConfirmBasket")]
-        public IActionResult ConfirmBasket(int userId)
+        public IActionResult ConfirmBasket(int userId,int ticketId)
         {
-            var basket = _basketRep.ConfirmBasket(userId);
+            var basket = _basketRep.ConfirmBasket(userId,ticketId);
             APIResponseModel rspModel = new APIResponseModel()
             {
                 Error = basket.Error,

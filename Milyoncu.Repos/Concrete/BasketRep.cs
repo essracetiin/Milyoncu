@@ -56,10 +56,10 @@ namespace Milyoncu.Repos.Concrete
         {
             return _db.Baskets.Include(r => r.User).Include(t => t.Tickets).Include(w => w.User.Wallet).FirstOrDefault(u => u.UserId == UserId);
         }
-        public BasketDTO ConfirmBasket(int userId)
+        public BasketDTO ConfirmBasket(int userId,int ticketId)
         {
             var basket = _db.Baskets.Include(n => n.Tickets).Include(h => h.User.Wallet).FirstOrDefault(f => f.UserId == userId);
-            
+            var quant = _db.Tickets.Include(s => s.Event).FirstOrDefault(e => e.Id == ticketId);
             basket.Completed = true;
             basket.Tickets.ToList().ForEach(item => item.Completed = true);
             
@@ -68,22 +68,24 @@ namespace Milyoncu.Repos.Concrete
            
             if (basket.Completed == true)
             {
-               //var bilets = basket.Tickets.ToList();
-               // foreach (var tick in bilets)
-               // {
-               //     var query = (from t in _db.Tickets
-               //                  join e in _db.Events
-               //                  on t.EventId equals e.Id
-               //                  select new
-               //                  {
-               //                      t.EventId,
-               //                      e.Id,
-               //                  }
-               //         );
+                //var bilets = basket.Tickets.ToList();
+                // foreach (var tick in bilets)
+                // {
+                //     var query = (from t in _db.Tickets
+                //                  join e in _db.Events
+                //                  on t.EventId equals e.Id
+                //                  select new
+                //                  {
+                //                      t.EventId,
+                //                      e.Id,
+                //                  }
+                //         );
 
-               // }
+                // }
+                var sayac = quant.Event.TicketQuantity++;
                 var bakiye = basket.User.Wallet.Amount - basket.TotalPrice;
                 basket.User.Wallet.Amount = bakiye;
+                
                 
             }
             
@@ -96,5 +98,7 @@ namespace Milyoncu.Repos.Concrete
             return basketdto;
             
         }
+
+       
     }
 }
