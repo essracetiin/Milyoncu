@@ -19,5 +19,6 @@ namespace Milyoncu.Repos.Abstract
         public Ticket UpdateTicket(Ticket ticket);
         public Ticket DeleteTicket(Ticket ticket);
         public bool DeletebyTicketId(int ticketId);
+        public void CreateTickets(Event events);
     }
 }

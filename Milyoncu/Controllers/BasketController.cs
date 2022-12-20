@@ -67,9 +67,9 @@ namespace Milyoncu.API.Controllers
             return this.Ok();
         }
         [HttpPost("ConfirmBasket")]
-        public IActionResult ConfirmBasket(int userId,int ticketId)
+        public IActionResult ConfirmBasket(int userId)
         {
-            var basket = _basketRep.ConfirmBasket(userId,ticketId);
+            var basket = _basketRep.ConfirmBasket(userId);
             APIResponseModel rspModel = new APIResponseModel()
             {
                 Error = basket.Error,
@@ -77,6 +77,12 @@ namespace Milyoncu.API.Controllers
             };
             
             return this.Ok(rspModel);
+        }
+        [HttpPost("DeCompleteBasket")]
+        public IActionResult DeCompleteBasket(int basketId)
+        {
+            var basket = _basketRep.DeCompleteBasket(basketId);
+            return this.Ok(basket); //UI Tarafında AddToBasket'i çağırdıktan sonra bu methodta çağırılacak.!!!!!!!!!!!!!!!!
         }
     }
 }

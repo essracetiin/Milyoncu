@@ -20,6 +20,7 @@ namespace Milyoncu.Dal
         public DbSet<Event> Events { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Basket> Baskets { get; set; }
+        public DbSet<Lottery> Lotteries { get; set; }
 
 
 

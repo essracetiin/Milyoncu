@@ -26,6 +26,7 @@ builder.Services.AddScoped<IEventRep, EventRep<Event>>();
 builder.Services.AddScoped<ITicketRep, TicketRep<Ticket>>();
 builder.Services.AddScoped<IUserRep, UserRep<User>>();
 builder.Services.AddScoped<IWalletRep, WalletRep<Wallet>>();
+builder.Services.AddScoped<ILotteryRep, LotteryRep<Lottery>>();
 builder.Services.AddScoped<IUow, Uow>();
 builder.Services.AddScoped<APIResponseModel>();
 builder.Services.AddControllers().AddJsonOptions(x =>

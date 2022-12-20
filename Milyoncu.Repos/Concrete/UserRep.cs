@@ -52,6 +52,15 @@ namespace Milyoncu.Repos.Concrete
 
             };
             _db.Users.Add(user);
+            _db.SaveChanges();
+            Basket basket = new Basket()
+            {
+                UserId = user.Id,
+                TotalPrice=0,
+                Completed=false,
+            };
+            _db.Baskets.Add(basket);
+            _db.SaveChanges();
             return u;
 
         }

@@ -13,16 +13,20 @@ namespace Milyoncu.Repos.Concrete
 {
     public class EventRep<T> : BaseRepository<Event>, IEventRep where T : class
     {
-        public MilyoncuContext _db;
-        public EventRep(MilyoncuContext db) : base(db)
+        public MilyoncuContext _db; 
+        private readonly ITicketRep _ticketRep;
+        public EventRep(MilyoncuContext db, ITicketRep ticketRep) : base(db)
         {
             _db = db;
+            _ticketRep = ticketRep;
         }
+        
 
         public Event CreateEvent(Event e)
         {
             _db.Set<Event>().Add(e);
-
+            _db.SaveChanges();
+            _ticketRep.CreateTickets(e);
             return e;
 
         }

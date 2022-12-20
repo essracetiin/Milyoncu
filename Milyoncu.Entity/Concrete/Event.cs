@@ -11,7 +11,7 @@ namespace Milyoncu.Entity.Concrete
     {
         public string EventName { get; set; }
         public int Capacity { get; set; }
-        //public int TicketPrice { get; set; }
+        public int TicketPrice { get; set; }
         public int TicketQuantity { get; set; }
         public DateTime EndTime { get; set; }
         public string Description { get; set; }
