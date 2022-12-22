@@ -1,4 +1,5 @@
 ﻿using Milyoncu.Core;
+using Milyoncu.Dal.Migrations;
 using Milyoncu.Entity.Concrete;
 using System;
 using System.Collections.Generic;
