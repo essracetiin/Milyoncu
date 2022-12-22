@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Milyoncu.Repos", "Milyoncu.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Milyoncu.Uow", "Milyoncu.Uow\Milyoncu.Uow.csproj", "{268BCBF6-B52A-402D-B79D-427B89AEAFA7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Milyoncu.UI", "Milyoncu.UI\Milyoncu.UI.csproj", "{50E30088-DF9F-4C7F-8ADC-A7939CC2AD8D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{268BCBF6-B52A-402D-B79D-427B89AEAFA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{268BCBF6-B52A-402D-B79D-427B89AEAFA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{268BCBF6-B52A-402D-B79D-427B89AEAFA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50E30088-DF9F-4C7F-8ADC-A7939CC2AD8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50E30088-DF9F-4C7F-8ADC-A7939CC2AD8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50E30088-DF9F-4C7F-8ADC-A7939CC2AD8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50E30088-DF9F-4C7F-8ADC-A7939CC2AD8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
